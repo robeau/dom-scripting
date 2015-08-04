@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Problem 1</title>
+</head>
+<body>
+
+<script>
+    var ul = document.querySelector('ul');
+    var lis = ul.querySelectorAll('li');
+    var schengen_arr = Array.prototype.slice.call(lis);
+    var schengen_countries = [];
+    schengen_arr.forEach(function(country){
+        schengen_countries.push(country.textContent);
+    });
+
+    var ul2 = document.querySelectorAll('ul')[1];
+    var lis2 = ul2.querySelectorAll('li');
+    var eu_arr = Array.prototype.slice.call(lis2);
+    var eu_countries_names = [];
+    var eu_countries_years = [];
+    eu_arr.forEach(function(country){
+        var inner = country.textContent;
+        var inner = inner.split(' ');
+        if(inner.length === 2){
+            eu_countries_names.push(inner[0]);
+            var year = inner[1];
+            eu_countries_years.push(year.slice(1,-1));
+        }
+        else{
+            eu_countries_names.push(inner[0] + ' ' + inner[1]);
+            var year = inner[2];
+            eu_countries_years.push(year.slice(1,-1));
+        }
+    });
+
+    var ul3 = document.querySelectorAll('ul')[2];
+    var lis3 = ul3.querySelectorAll('li');
+    var candidate_arr = Array.prototype.slice.call(lis3);
+    var candidate_names = [];
+    candidate_arr.forEach(function(country){
+        candidate_names.push(country.textContent);
+    });
+
+    var ul4 = document.querySelectorAll('ul')[3];
+    var lis4 = ul4.querySelectorAll('li');
+    var potential_arr = Array.prototype.slice.call(lis4);
+    var potential_names = [];
+    potential_arr.forEach(function(country){
+        potential_names.push(country.textContent);
+    });
+
+
+
+    var schengen_list = [];
+    for(var j = 0; j < schengen_countries.length; j++){
+        for (var k = 0; k < eu_countries_names.length; k++){
+            if (schengen_countries[j] === eu_countries_names[k]) {
+                schengen_list.push({Name: schengen_countries[j], Classification: 'European Union', Year: eu_countries_years[k]});
+            }
+        }
+        for (var k = 0; k < candidate_names.length; k++){
+            if (schengen_countries[j] === candidate_names[k]){
+                schengen_list.push({Name: schengen_countries[j], Classification: 'Candidate'});
+            }
+        }
+        for (var k = 0; k < potential_names.length; k++){
+            if (schengen_countries[j] === potential_names[k]){
+                schengen_list.push({Name: schengen_countries[j], Classification: 'Potential Candidate'});
+            }
+        }
+    }
+
+    var schengen = {
+        countries: schengen_list,
+        getCountries: function (start,till) {
+            var matches = [];
+            this.countries.forEach(function (country) {
+                if(country.Year >= start && country.Year <= till){
+                    matches.push(country);
+                }
+            })
+            return matches;
+        }
+    }
+</script>
+
+</body>
+</html>
