@@ -23,7 +23,7 @@
     inp.addEventListener('keypress', function (event) {
         var input = this.value + String.fromCodePoint(event.charCode);
         console.log(input);
-        var str = new RegExp(input);
+        var str = new RegExp(input, "gi");
         console.log(str);
 
         var highlighted = div.textContent.replace(str, '<mark>' + input + '</mark>');

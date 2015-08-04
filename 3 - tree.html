@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tree</title>
+</head>
+
+<!--- BEGIN PARSED CODE --->
+<body>
+    <div>
+        <div>
+            <span>
+                <p></p>
+            </span>
+        </div>
+    </div>
+<!--- END PARSED CODE --->
+
+    <div class="endPoint"></div>
+    <p class="info"></p>
+    <script>
+        var info = document.querySelector('[class="info"]');
+
+        var level = 0;
+        var count = 0;
+
+
+        function newTag (el){
+            for (var i = 0; i < level; i++){
+                info.innerHTML += '&nbsp;&nbsp;&nbsp;&nbsp;';
+            }
+            info.innerHTML +=  '<span class="cl-' + count + '"></span> <span class="el-' + count + '">' + el.nodeName + '</span><br />';
+            count++;
+            console.log(el.nodeName);
+        }
+
+        var bod = document.body;
+
+        function delve (el){
+            level++;
+            if (el.children.length <= 0){
+            }
+            else{
+
+                if(el.nodeName == 'BODY'){
+                    var stop = 1;
+                }
+                else {
+                    var stop = el.children.length;
+                }
+                for (var i = 0; i < stop; i++){
+                    if(el.children[i].className == 'endPoint'){
+                        return undefined;
+                    }
+                    console.log(el.children.length, el.children[i].nodeName, el.children[i].className);
+                    newTag(el.children[i]);
+                    delve(el.children[i]);
+                }
+            }
+
+        }
+
+        function clickers (){
+            var spans = document.querySelectorAll('[class^="cl-"]');
+            var spans_arr = Array.prototype.slice.call(spans);
+
+            spans_arr.forEach(function (el) {
+                var parent_class = el.className.slice(3);
+                var all_els = document.querySelectorAll('span');
+                el.innerHTML = '[-]';
+                el.addEventListener('click', function(){
+                    var inner = el.innerHTML;
+                    if (inner === '[-]'){
+                        el.innerHTML = '[+]';
+                        for (var j = 0; j < all_els.length; j++){
+                            var current_class = all_els[j].className.slice(3);
+                            if (current_class > parent_class){
+                                all_els[j].style.visibility = "hidden";
+                            }
+                        }
+                    }
+                    else{
+                        el.innerHTML = '[-]';
+                        for (var j = 0; j < all_els.length; j++){
+                            var current_class = all_els[j].className.slice(3);
+                            if (current_class >= parent_class){
+                                all_els[j].style.visibility = "visible";
+                            }
+                        }
+                    }
+                });
+            })
+        }
+
+        newTag(bod);
+        delve(bod);
+        clickers();
+
+    </script>
+</body>
+</html>
