@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Problem 2</title>
+    <style>
+        mark{
+            background-color: yellow;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div>There are six European Union member states that are not part of the Schengen area as well as state territories that are also not part of the Schengen agreement. Out of the six Schengen nonmember states, four of them are soon joining the Schengen area as is Bulgaria, Croatia, Cyprus and Romania while the other two, Ireland and the United Kingdom remain opt-out (In general, the law of the European Union is valid in all of the twenty-eight European Union member states. However, occasionally member states negotiate certain opt-outs from legislation or treaties of the European Union, meaning they do not have to participate in certain policy areas.) Apart from the aforementioned states as a whole, there are certain territories within EU states that also not part of the Schengen area, including: French territories of French Guyana, Guadeloupe, Martinique, Réunion, Mayotte, Saint Barthélemy and Saint Martin.</div>
+<input type="text" />
+
+<script>
+    var inp = document.querySelector('input');
+    var div = document.querySelector('div');
+
+
+
+    inp.addEventListener('keypress', function (event) {
+        var input = this.value + String.fromCodePoint(event.charCode);
+        console.log(input);
+        var str = new RegExp(input);
+        console.log(str);
+
+        var highlighted = div.textContent.replace(str, '<mark>' + input + '</mark>');
+
+        div.innerHTML = highlighted;
+    });
+</script>
+</body>
+</html>
